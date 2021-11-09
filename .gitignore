@@ -1,1 +1,13 @@
 .metadata*
+
+*.project
+
+*.classpath
+
+*MANIFEST.MF*
+
+*.settings
+
+*pom.properties
+
+*target*
