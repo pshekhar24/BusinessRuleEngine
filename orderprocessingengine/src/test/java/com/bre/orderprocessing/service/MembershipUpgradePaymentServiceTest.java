@@ -12,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.bre.orderprocesing.exception.InvalidOrderException;
-import com.bre.orderprocesing.exception.MembershipAlreadyExistsException;
+import com.bre.orderprocesing.exception.MembershipNotFoundException;
 import com.bre.orderprocessing.model.Order;
 import com.bre.orderprocessing.model.ProductType;
 import com.bre.orderprocessing.model.UserMembership;
@@ -20,10 +20,10 @@ import com.bre.orderprocessing.service.helper.MembershipHelperService;
 import com.bre.orderprocessing.service.helper.NotificationHelperSerivce;
 
 @ExtendWith(MockitoExtension.class)
-class MembershipPaymentServiceTest {
+class MembershipUpgradePaymentServiceTest {
 
 	@InjectMocks
-	MembershipPaymentService membershipPaymentService;
+	MembershipUpgradePaymentService membershipUpgradePaymentService;
 
 	@Mock
 	MembershipHelperService membershipHelperService;
@@ -35,43 +35,44 @@ class MembershipPaymentServiceTest {
 
 	@BeforeEach
 	void setUp() {
-		order = new Order(1, new UserMembership(1), ProductType.MEMBERSHIP);
+		order = new Order(1, new UserMembership(1), ProductType.MEMBERSHIP_UPGRADE);
 	}
 
 	@Test
-	void testOrderNullForMembership() throws MembershipAlreadyExistsException {
+	void testOrderNullForMembership() throws MembershipNotFoundException {
 		try {
-			membershipPaymentService.processPayment(null);
+			membershipUpgradePaymentService.processPayment(null);
 		} catch (InvalidOrderException e) {
 			assertEquals("Order cannot be null", e.getMessage());
 		}
 
 	}
 	
+	
+	@Test
+	void testOrderPaymentForMembership() throws InvalidOrderException, MembershipNotFoundException {
+		// when
+		when(membershipHelperService.upgradeMembership(order)).thenReturn(order);
+		when(notificationHelperSerivce.sendEmailNotification(order)).thenReturn(order);
+
+		// Given
+		membershipUpgradePaymentService.processPayment(order);
+
+		// then
+		verify(membershipHelperService).upgradeMembership(order);
+		verify(notificationHelperSerivce).sendEmailNotification(order);
+	}
+	
 	@Test
 	void testMembershipIdExistsForMembership() throws InvalidOrderException {
 		try {
-			membershipPaymentService.processPayment(order);
-		} catch (MembershipAlreadyExistsException e) {
-			assertEquals("Membership already exists", e.getMessage());
+			order.setMembership(null);
+			membershipUpgradePaymentService.processPayment(order);
+		} catch (MembershipNotFoundException e) {
+			assertEquals("No existing membership avaibale for upgrade", e.getMessage());
 		}
 
 	}
 
-	@Test
-	void testOrderPaymentForMembership() throws InvalidOrderException, MembershipAlreadyExistsException {
-		// when
-		order.setMembership(null);
-		when(membershipHelperService.activateMembership(order)).thenReturn(order);
-		when(notificationHelperSerivce.sendEmailNotification(order)).thenReturn(order);
-
-		// Given
-		membershipPaymentService.processPayment(order);
-
-		// then
-		verify(membershipHelperService).activateMembership(order);
-		verify(notificationHelperSerivce).sendEmailNotification(order);
-	}
-	
 
 }

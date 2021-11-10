@@ -9,5 +9,10 @@ public class MembershipHelperService {
 		order.getOrderEventLogs().add(new OrderEventLog("Membership activated"));
 		return order;
 	}
+
+	public Order upgradeMembership(Order order) {
+		order.getOrderEventLogs().add(new OrderEventLog("Upgraded Membership"));
+		return order;
+	}
 	
 }
