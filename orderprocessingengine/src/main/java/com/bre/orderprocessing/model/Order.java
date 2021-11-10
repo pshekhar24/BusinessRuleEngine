@@ -11,7 +11,7 @@ public class Order {
 
 	private ProductType productType;
 
-	private List<OrderEventLog> orderEventLogs;
+	private List<OrderEventLog> orderEventLogs = new ArrayList<OrderEventLog>();
 
 	public Order(long orderId, UserMembership membership, ProductType productType) {
 		this.orderId = orderId;
@@ -44,12 +44,13 @@ public class Order {
 	}
 
 	public List<OrderEventLog> getOrderEventLogs() {
-		if (this.orderEventLogs == null) {
-			return new ArrayList<OrderEventLog>();
-		}
-		return orderEventLogs;
+		return this.orderEventLogs;
 	}
 
+	public void addOrderEventLog(OrderEventLog orderEventLog) {
+		this.getOrderEventLogs().add(orderEventLog);
+	}
+	
 	public void setOrderEventLogs(List<OrderEventLog> orderEventLogs) {
 		this.orderEventLogs = orderEventLogs;
 	}
