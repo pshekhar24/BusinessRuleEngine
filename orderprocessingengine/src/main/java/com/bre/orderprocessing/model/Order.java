@@ -10,6 +10,8 @@ public class Order {
 	private UserMembership membership;
 
 	private ProductType productType;
+	
+	private String productName;
 
 	private List<OrderEventLog> orderEventLogs = new ArrayList<OrderEventLog>();
 
@@ -53,6 +55,14 @@ public class Order {
 	
 	public void setOrderEventLogs(List<OrderEventLog> orderEventLogs) {
 		this.orderEventLogs = orderEventLogs;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
 }

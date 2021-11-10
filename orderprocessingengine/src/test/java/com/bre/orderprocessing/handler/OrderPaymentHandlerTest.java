@@ -11,6 +11,7 @@ import com.bre.orderprocessing.service.BookPaymentService;
 import com.bre.orderprocessing.service.MembershipPaymentService;
 import com.bre.orderprocessing.service.MembershipUpgradePaymentService;
 import com.bre.orderprocessing.service.PhysicalProductPaymentService;
+import com.bre.orderprocessing.service.VideoPaymentService;
 
 public class OrderPaymentHandlerTest {
 
@@ -48,6 +49,12 @@ public class OrderPaymentHandlerTest {
 	void testWhenProductTypeIsForMemberShipUpgrade() {
 		assertEquals(orderPaymentHandler.getPaymentHandlerService(ProductType.MEMBERSHIP_UPGRADE).getClass(),
 				MembershipUpgradePaymentService.class);
+	}
+	
+	@Test
+	void testWhenProductTypeIsForVideo() {
+		assertEquals(orderPaymentHandler.getPaymentHandlerService(ProductType.VIDEO).getClass(),
+				VideoPaymentService.class);
 	}
 
 }

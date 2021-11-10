@@ -6,6 +6,7 @@ import com.bre.orderprocessing.service.MembershipPaymentService;
 import com.bre.orderprocessing.service.MembershipUpgradePaymentService;
 import com.bre.orderprocessing.service.OrderPaymentService;
 import com.bre.orderprocessing.service.PhysicalProductPaymentService;
+import com.bre.orderprocessing.service.VideoPaymentService;
 
 public class OrderPaymentHandler {
 	
@@ -19,6 +20,8 @@ public class OrderPaymentHandler {
 				return new MembershipPaymentService();
 			} else if ((ProductType.MEMBERSHIP_UPGRADE).equals(productType)) {
 				return new MembershipUpgradePaymentService();
+			} else if ((ProductType.VIDEO).equals(productType)) {
+				return new VideoPaymentService();
 			}  
 		} 
 		return null;
