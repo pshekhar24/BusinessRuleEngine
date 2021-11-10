@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import com.bre.orderprocessing.model.ProductType;
 import com.bre.orderprocessing.service.BookPaymentService;
+import com.bre.orderprocessing.service.MembershipPaymentService;
 import com.bre.orderprocessing.service.PhysicalProductPaymentService;
 
 public class OrderPaymentHandlerTest {
@@ -34,6 +35,12 @@ public class OrderPaymentHandlerTest {
 	void testWhenProductTypeIsForBook() {
 		assertEquals(orderPaymentHandler.getPaymentHandlerService(ProductType.BOOK).getClass(),
 				BookPaymentService.class);
+	}
+	
+	@Test
+	void testWhenProductTypeIsForMemberShip() {
+		assertEquals(orderPaymentHandler.getPaymentHandlerService(ProductType.MEMBERSHIP).getClass(),
+				MembershipPaymentService.class);
 	}
 
 }
