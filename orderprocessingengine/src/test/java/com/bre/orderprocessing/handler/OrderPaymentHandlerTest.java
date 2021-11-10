@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.bre.orderprocessing.model.ProductType;
+import com.bre.orderprocessing.service.BookPaymentService;
 import com.bre.orderprocessing.service.PhysicalProductPaymentService;
 
 public class OrderPaymentHandlerTest {
@@ -27,6 +28,12 @@ public class OrderPaymentHandlerTest {
 	void testWhenProductTypeIsForPhysicalProduct() {
 		assertEquals(orderPaymentHandler.getPaymentHandlerService(ProductType.PHYSICAL_PRODCUT).getClass(),
 				PhysicalProductPaymentService.class);
+	}
+	
+	@Test
+	void testWhenProductTypeIsForBook() {
+		assertEquals(orderPaymentHandler.getPaymentHandlerService(ProductType.BOOK).getClass(),
+				BookPaymentService.class);
 	}
 
 }

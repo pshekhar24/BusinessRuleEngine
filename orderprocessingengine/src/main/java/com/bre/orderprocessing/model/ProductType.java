@@ -1,5 +1,5 @@
 package com.bre.orderprocessing.model;
 
 public enum ProductType{
-	PHYSICAL_PRODCUT
+	PHYSICAL_PRODCUT, BOOK
 }

@@ -11,7 +11,7 @@ public class PackingSlipHelperService {
 	}
 	
 	public Order createDuplicatePackingSlip(Order order) {
-		order.addOrderEventLog(new OrderEventLog("Created duplicate packing slip"));
+		order.addOrderEventLog(new OrderEventLog("Created duplicate packing slip for the royalty department"));
 		return order;
 	}
 

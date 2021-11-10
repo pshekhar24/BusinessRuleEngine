@@ -6,15 +6,15 @@ import com.bre.orderprocessing.service.helper.CommissionPaymentHelperSerivce;
 import com.bre.orderprocessing.service.helper.PackingSlipHelperService;
 import com.bre.orderprocessing.validator.OrderValidator;
 
-public class PhysicalProductPaymentService implements OrderPaymentService {
+public class BookPaymentService implements OrderPaymentService{
 	
 	private PackingSlipHelperService packingSlipHelperService;
 	private CommissionPaymentHelperSerivce commissionPaymentHelperSerivce;
-	
+
 	@Override
 	public Order processPayment(Order order) throws InvalidOrderException {
 		OrderValidator.validateOrder(order);
-		packingSlipHelperService.generatePackingSlip(order);
+		packingSlipHelperService.createDuplicatePackingSlip(order);
 		commissionPaymentHelperSerivce.generateCommissionPaymentToAgent(order);
 		return order;
 	}
